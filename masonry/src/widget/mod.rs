@@ -31,6 +31,7 @@ mod split;
 mod textbox;
 mod variable_label;
 mod widget_arena;
+mod zstack;
 
 pub use self::image::Image;
 pub use align::Align;
@@ -52,6 +53,7 @@ pub use variable_label::VariableLabel;
 pub use widget_mut::WidgetMut;
 pub use widget_pod::WidgetPod;
 pub use widget_ref::WidgetRef;
+pub use zstack::ZStack;
 
 pub(crate) use widget_arena::WidgetArena;
 pub(crate) use widget_state::WidgetState;
