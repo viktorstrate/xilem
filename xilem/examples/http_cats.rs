@@ -10,6 +10,7 @@
 
 use std::sync::Arc;
 
+use masonry::widget::Alignment;
 use vello::peniko::{Blob, Image};
 use winit::dpi::LogicalSize;
 use winit::error::EventLoopError;
@@ -17,8 +18,8 @@ use winit::window::Window;
 use xilem::core::fork;
 use xilem::core::one_of::OneOf3;
 use xilem::view::{
-    button, flex, image, inline_prose, portal, prose, sized_box, spinner, worker, Axis, FlexExt,
-    FlexSpacer,
+    button, flex, image, inline_prose, portal, prose, sized_box, spinner, worker, zstack, Axis,
+    FlexExt, FlexSpacer,
 };
 use xilem::{Color, EventLoop, EventLoopBuilder, TextAlignment, WidgetView, Xilem};
 
@@ -195,10 +196,12 @@ impl Status {
                 .text_size(20.)
                 .alignment(TextAlignment::Middle),
             FlexSpacer::Fixed(10.),
-            image,
-            // TODO: Overlay on top of the image?
-            // HACK: Trailing spaces workaround scrollbar covering content
-            prose("Copyright ©️ https://http.cat      ").alignment(TextAlignment::End),
+            zstack((
+                image,
+                // HACK: Trailing spaces workaround scrollbar covering content
+                prose("Copyright ©️ https://http.cat      ").alignment(TextAlignment::End),
+            ))
+            .alignment(Alignment::TopTrailing),
         ))
         .main_axis_alignment(xilem::view::MainAxisAlignment::Start)
     }
